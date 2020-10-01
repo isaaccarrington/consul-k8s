@@ -29,8 +29,10 @@ type ConfigEntryResource interface {
 	// KubeKind returns the Kube config entry kind, i.e. servicedefaults, not
 	// service-defaults.
 	KubeKind() string
-	// Name returns the name of the config entry.
-	Name() string
+	// ConsulName returns the name of the config entry as saved in Consul.
+	ConsulName() string
+	// KubernetesName returns the name of the KubernetesResource.
+	KubernetesName() string
 	// SetSyncedCondition updates the synced condition.
 	SetSyncedCondition(status corev1.ConditionStatus, reason, message string)
 	// SyncedCondition gets the synced condition.

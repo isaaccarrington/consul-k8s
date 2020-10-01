@@ -111,7 +111,7 @@ func (r *ConfigEntryController) ReconcileEntry(
 		if containsString(configEntry.GetObjectMeta().Finalizers, FinalizerName) {
 			logger.Info("deletion event")
 			// Check to see if consul has config entry with the same name
-			entry, _, err := r.ConsulClient.ConfigEntries().Get(configEntry.ConsulKind(), configEntry.Name(), &capi.QueryOptions{
+			entry, _, err := r.ConsulClient.ConfigEntries().Get(configEntry.ConsulKind(), configEntry.ConsulName(), &capi.QueryOptions{
 				Namespace: r.consulNamespace(configEntry.ConsulNamespace()),
 			})
 
@@ -122,7 +122,7 @@ func (r *ConfigEntryController) ReconcileEntry(
 			} else if err == nil {
 				// Only delete the resource from Consul if it is owned by our datacenter.
 				if entry.GetMeta()[common.DatacenterKey] == r.DatacenterName {
-					_, err := r.ConsulClient.ConfigEntries().Delete(configEntry.ConsulKind(), configEntry.Name(), &capi.WriteOptions{
+					_, err := r.ConsulClient.ConfigEntries().Delete(configEntry.ConsulKind(), configEntry.ConsulName(), &capi.WriteOptions{
 						Namespace: r.consulNamespace(configEntry.ConsulNamespace()),
 					})
 					if err != nil {
@@ -146,7 +146,7 @@ func (r *ConfigEntryController) ReconcileEntry(
 	}
 
 	// Check to see if consul has config entry with the same name
-	entry, _, err := r.ConsulClient.ConfigEntries().Get(configEntry.ConsulKind(), configEntry.Name(), &capi.QueryOptions{
+	entry, _, err := r.ConsulClient.ConfigEntries().Get(configEntry.ConsulKind(), configEntry.ConsulName(), &capi.QueryOptions{
 		Namespace: r.consulNamespace(configEntry.ConsulNamespace()),
 	})
 	// If a config entry with this name does not exist

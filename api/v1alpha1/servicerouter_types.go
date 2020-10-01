@@ -313,7 +313,11 @@ func (in *ServiceRouter) KubeKind() string {
 	return ServiceRouterKubeKind
 }
 
-func (in *ServiceRouter) Name() string {
+func (in *ServiceRouter) ConsulName() string {
+	return in.ObjectMeta.Name
+}
+
+func (in *ServiceRouter) KubernetesName() string {
 	return in.ObjectMeta.Name
 }
 
@@ -352,7 +356,7 @@ func (in *ServiceRouter) ToConsul(datacenter string) capi.ConfigEntry {
 	}
 	return &capi.ServiceRouterConfigEntry{
 		Kind:   in.ConsulKind(),
-		Name:   in.Name(),
+		Name:   in.ConsulName(),
 		Routes: routes,
 		Meta:   meta(datacenter),
 	}
@@ -379,7 +383,7 @@ func (in *ServiceRouter) Validate() error {
 	if len(errs) > 0 {
 		return apierrors.NewInvalid(
 			schema.GroupKind{Group: ConsulHashicorpGroup, Kind: ServiceRouterKubeKind},
-			in.Name(), errs)
+			in.ConsulName(), errs)
 	}
 	return nil
 }

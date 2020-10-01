@@ -297,6 +297,25 @@ func TestServiceIntentions_Validate(t *testing.T) {
 			},
 			"",
 		},
+		"invalid action": {
+			&ServiceIntentions{
+				ObjectMeta: metav1.ObjectMeta{
+					Name: "does-not-matter",
+				},
+				Spec: ServiceIntentionsSpec{
+					Name:      "dest-service",
+					Namespace: "namespace",
+					Sources: SourceIntentions{
+						{
+							Name:      "web",
+							Namespace: "web",
+							Action:    "foo",
+						},
+					},
+				},
+			},
+			`serviceintentions.consul.hashicorp.com "does-not-matter" is invalid: spec.sources[0].action: Invalid value: "foo": must be one of "allow", "deny"`,
+		},
 	}
 	for name, testCase := range cases {
 		t.Run(name, func(t *testing.T) {

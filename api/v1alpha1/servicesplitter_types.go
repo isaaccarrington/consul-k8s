@@ -93,7 +93,7 @@ func (in *ServiceSplitter) KubeKind() string {
 	return common.ServiceSplitter
 }
 
-func (in *ServiceSplitter) Name() string {
+func (in *ServiceSplitter) ConsulName() string {
 	return in.ObjectMeta.Name
 }
 
@@ -128,10 +128,14 @@ func (in *ServiceSplitter) SyncedConditionStatus() corev1.ConditionStatus {
 func (in *ServiceSplitter) ToConsul(datacenter string) capi.ConfigEntry {
 	return &capi.ServiceSplitterConfigEntry{
 		Kind:   in.ConsulKind(),
-		Name:   in.Name(),
+		Name:   in.ConsulName(),
 		Splits: in.Spec.Splits.toConsul(),
 		Meta:   meta(datacenter),
 	}
+}
+
+func (in *ServiceSplitter) KubernetesName() string {
+	return in.ObjectMeta.Name
 }
 
 func (in *ServiceSplitter) MatchesConsul(candidate capi.ConfigEntry) bool {
@@ -149,7 +153,7 @@ func (in *ServiceSplitter) Validate() error {
 	if len(errs) > 0 {
 		return apierrors.NewInvalid(
 			schema.GroupKind{Group: ConsulHashicorpGroup, Kind: in.KubeKind()},
-			in.Name(), errs)
+			in.ConsulName(), errs)
 	}
 	return nil
 }

@@ -135,6 +135,10 @@ type mockConfigEntry struct {
 	Valid         bool
 }
 
+func (in *mockConfigEntry) KubernetesName() string {
+	return in.MockName
+}
+
 func (in *mockConfigEntry) ConsulNamespace() string {
 	return in.MockNamespace
 }
@@ -167,7 +171,7 @@ func (in *mockConfigEntry) KubeKind() string {
 	return "mockkind"
 }
 
-func (in *mockConfigEntry) Name() string {
+func (in *mockConfigEntry) ConsulName() string {
 	return in.MockName
 }
 

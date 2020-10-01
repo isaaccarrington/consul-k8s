@@ -187,7 +187,7 @@ func TestConfigEntryController_createsConfigEntry_consulNamespaces(tt *testing.T
 				req.NoError(err)
 				req.False(resp.Requeue)
 
-				cfg, _, err := consulClient.ConfigEntries().Get(in.ConsulKind, in.KubeResource.Name(), &capi.QueryOptions{
+				cfg, _, err := consulClient.ConfigEntries().Get(in.ConsulKind, in.KubeResource.ConsulName(), &capi.QueryOptions{
 					Namespace: in.ConsulNamespace,
 				})
 				req.NoError(err)
@@ -420,7 +420,7 @@ func TestConfigEntryController_updatesConfigEntry_consulNamespaces(tt *testing.T
 					req.NoError(err)
 					req.False(resp.Requeue)
 
-					cfg, _, err := consulClient.ConfigEntries().Get(in.ConsulKind, in.KubeResource.Name(), &capi.QueryOptions{
+					cfg, _, err := consulClient.ConfigEntries().Get(in.ConsulKind, in.KubeResource.ConsulName(), &capi.QueryOptions{
 						Namespace: in.ConsulNamespace,
 					})
 					req.NoError(err)
@@ -612,10 +612,10 @@ func TestConfigEntryController_deletesConfigEntry_consulNamespaces(tt *testing.T
 					req.NoError(err)
 					req.False(resp.Requeue)
 
-					_, _, err = consulClient.ConfigEntries().Get(in.ConsulKind, in.KubeResource.Name(), &capi.QueryOptions{
+					_, _, err = consulClient.ConfigEntries().Get(in.ConsulKind, in.KubeResource.ConsulName(), &capi.QueryOptions{
 						Namespace: in.ConsulNamespace,
 					})
-					req.EqualError(err, fmt.Sprintf(`Unexpected response code: 404 (Config entry not found for "%s" / "%s")`, in.ConsulKind, in.KubeResource.Name()))
+					req.EqualError(err, fmt.Sprintf(`Unexpected response code: 404 (Config entry not found for "%s" / "%s")`, in.ConsulKind, in.KubeResource.ConsulName()))
 				}
 			})
 		}

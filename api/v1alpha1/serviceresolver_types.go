@@ -45,6 +45,10 @@ func (in *ServiceResolver) GetObjectMeta() metav1.ObjectMeta {
 	return in.ObjectMeta
 }
 
+func (in *ServiceResolver) KubernetesName() string {
+	return in.ObjectMeta.Name
+}
+
 func (in *ServiceResolver) AddFinalizer(f string) {
 	in.ObjectMeta.Finalizers = append(in.Finalizers(), f)
 }
@@ -63,7 +67,7 @@ func (in *ServiceResolver) Finalizers() []string {
 	return in.ObjectMeta.Finalizers
 }
 
-func (in *ServiceResolver) Name() string {
+func (in *ServiceResolver) ConsulName() string {
 	return in.ObjectMeta.Name
 }
 
@@ -99,7 +103,7 @@ func (in *ServiceResolver) SyncedConditionStatus() corev1.ConditionStatus {
 func (in *ServiceResolver) ToConsul(datacenter string) capi.ConfigEntry {
 	return &capi.ServiceResolverConfigEntry{
 		Kind:           in.ConsulKind(),
-		Name:           in.Name(),
+		Name:           in.ConsulName(),
 		DefaultSubset:  in.Spec.DefaultSubset,
 		Subsets:        in.Spec.Subsets.toConsul(),
 		Redirect:       in.Spec.Redirect.toConsul(),
@@ -142,7 +146,7 @@ func (in *ServiceResolver) Validate() error {
 	if len(errs) > 0 {
 		return apierrors.NewInvalid(
 			schema.GroupKind{Group: ConsulHashicorpGroup, Kind: ServiceResolverKubeKind},
-			in.Name(), errs)
+			in.ConsulName(), errs)
 	}
 	return nil
 }

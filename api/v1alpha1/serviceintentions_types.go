@@ -82,7 +82,11 @@ func (in *ServiceIntentions) KubeKind() string {
 	return common.ServiceIntentions
 }
 
-func (in *ServiceIntentions) Name() string {
+func (in *ServiceIntentions) ConsulName() string {
+	return in.Spec.Name
+}
+
+func (in *ServiceIntentions) KubernetesName() string {
 	return in.ObjectMeta.Name
 }
 
@@ -173,7 +177,7 @@ func (in *ServiceIntentions) Validate() error {
 	if len(errs) > 0 {
 		return apierrors.NewInvalid(
 			schema.GroupKind{Group: ConsulHashicorpGroup, Kind: common.ServiceIntentions},
-			in.Name(), errs)
+			in.ConsulName(), errs)
 	}
 	return nil
 }

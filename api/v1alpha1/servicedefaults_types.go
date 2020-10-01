@@ -76,7 +76,11 @@ func (in *ServiceDefaults) Finalizers() []string {
 	return in.ObjectMeta.Finalizers
 }
 
-func (in *ServiceDefaults) Name() string {
+func (in *ServiceDefaults) ConsulName() string {
+	return in.ObjectMeta.Name
+}
+
+func (in *ServiceDefaults) KubernetesName() string {
 	return in.ObjectMeta.Name
 }
 
@@ -125,7 +129,7 @@ func init() {
 func (in *ServiceDefaults) ToConsul(datacenter string) capi.ConfigEntry {
 	return &capi.ServiceConfigEntry{
 		Kind:        in.ConsulKind(),
-		Name:        in.Name(),
+		Name:        in.ConsulName(),
 		Protocol:    in.Spec.Protocol,
 		MeshGateway: in.Spec.MeshGateway.toConsul(),
 		Expose:      in.Spec.Expose.toConsul(),
@@ -148,7 +152,7 @@ func (in *ServiceDefaults) Validate() error {
 	if len(allErrs) > 0 {
 		return apierrors.NewInvalid(
 			schema.GroupKind{Group: ConsulHashicorpGroup, Kind: ServiceDefaultsKubeKind},
-			in.Name(), allErrs)
+			in.ConsulName(), allErrs)
 	}
 
 	return nil
