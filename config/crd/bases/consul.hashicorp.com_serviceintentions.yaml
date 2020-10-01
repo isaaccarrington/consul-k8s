@@ -48,11 +48,6 @@ spec:
                     type: string
                   namespace:
                     type: string
-                  precedence:
-                    type: integer
-                  type:
-                    description: IntentionSourceType is the type of the source within an intention.
-                    type: string
                 type: object
               type: array
           type: object

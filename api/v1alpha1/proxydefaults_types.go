@@ -6,6 +6,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+	"github.com/hashicorp/consul-k8s/api/common"
 	"github.com/hashicorp/consul/api"
 	capi "github.com/hashicorp/consul/api"
 	corev1 "k8s.io/api/core/v1"
@@ -72,8 +73,8 @@ func (in *ProxyDefaults) ConsulKind() string {
 	return capi.ProxyDefaults
 }
 
-func (in *ProxyDefaults) ConsulNamespaced() bool {
-	return false
+func (in *ProxyDefaults) ConsulNamespace() string {
+	return common.DefaultConsulNamespace
 }
 
 func (in *ProxyDefaults) KubeKind() string {

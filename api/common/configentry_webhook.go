@@ -45,7 +45,6 @@ func ValidateConfigEntry(
 		}
 		for _, item := range list {
 			if item.Name() == cfgEntry.Name() {
-				// todo: If running Consul Ent with mirroring need to change this to respect namespaces.
 				return admission.Errored(http.StatusBadRequest,
 					fmt.Errorf("%s resource with name %q is already defined – all %s resources must have unique names across namespaces",
 						cfgEntry.KubeKind(),

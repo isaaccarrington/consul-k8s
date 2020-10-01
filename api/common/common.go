@@ -11,6 +11,7 @@ const (
 
 	Global                 string = "global"
 	DefaultConsulNamespace string = "default"
+	WildcardNamespace      string = "*"
 
 	SourceKey     string = "external-source"
 	DatacenterKey string = "consul.hashicorp.com/source-datacenter"

@@ -279,6 +279,10 @@ type ServiceRouter struct {
 	Status `json:"status,omitempty"`
 }
 
+func (in *ServiceRouter) ConsulNamespace() string {
+	return in.Namespace
+}
+
 func (in *ServiceRouter) GetObjectMeta() metav1.ObjectMeta {
 	return in.ObjectMeta
 }
@@ -303,10 +307,6 @@ func (in *ServiceRouter) Finalizers() []string {
 
 func (in *ServiceRouter) ConsulKind() string {
 	return capi.ServiceRouter
-}
-
-func (in *ServiceRouter) ConsulNamespaced() bool {
-	return true
 }
 
 func (in *ServiceRouter) KubeKind() string {

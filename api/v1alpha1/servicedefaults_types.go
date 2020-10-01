@@ -46,8 +46,8 @@ func (in *ServiceDefaults) ConsulKind() string {
 	return capi.ServiceDefaults
 }
 
-func (in *ServiceDefaults) ConsulNamespaced() bool {
-	return true
+func (in *ServiceDefaults) ConsulNamespace() string {
+	return in.Namespace
 }
 
 func (in *ServiceDefaults) KubeKind() string {

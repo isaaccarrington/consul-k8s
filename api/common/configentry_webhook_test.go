@@ -135,8 +135,8 @@ type mockConfigEntry struct {
 	Valid         bool
 }
 
-func (in *mockConfigEntry) ConsulNamespaced() bool {
-	return true
+func (in *mockConfigEntry) ConsulNamespace() string {
+	return in.MockNamespace
 }
 
 func (in *mockConfigEntry) GetObjectMeta() metav1.ObjectMeta {

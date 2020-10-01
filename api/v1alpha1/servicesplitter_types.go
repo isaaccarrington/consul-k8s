@@ -63,6 +63,10 @@ func (in *ServiceSplitter) GetObjectMeta() metav1.ObjectMeta {
 	return in.ObjectMeta
 }
 
+func (in *ServiceSplitter) ConsulNamespace() string {
+	return in.Namespace
+}
+
 func (in *ServiceSplitter) AddFinalizer(name string) {
 	in.ObjectMeta.Finalizers = append(in.Finalizers(), name)
 }
@@ -83,10 +87,6 @@ func (in *ServiceSplitter) Finalizers() []string {
 
 func (in *ServiceSplitter) ConsulKind() string {
 	return capi.ServiceSplitter
-}
-
-func (in *ServiceSplitter) ConsulNamespaced() bool {
-	return true
 }
 
 func (in *ServiceSplitter) KubeKind() string {

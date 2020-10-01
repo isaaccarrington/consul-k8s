@@ -33,8 +33,8 @@ func (in *ServiceResolver) ConsulKind() string {
 	return capi.ServiceResolver
 }
 
-func (in *ServiceResolver) ConsulNamespaced() bool {
-	return true
+func (in *ServiceResolver) ConsulNamespace() string {
+	return in.Namespace
 }
 
 func (in *ServiceResolver) KubeKind() string {
