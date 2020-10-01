@@ -26,6 +26,8 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/go-testing-interface v1.14.0 // indirect
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
+	github.com/onsi/ginkgo v1.12.1
+	github.com/onsi/gomega v1.10.1
 	github.com/radovskyb/watcher v1.0.2
 	github.com/stretchr/testify v1.5.1
 	go.opencensus.io v0.22.0 // indirect
@@ -42,5 +44,7 @@ require (
 	k8s.io/client-go v0.18.6
 	sigs.k8s.io/controller-runtime v0.6.3
 )
+
+replace github.com/hashicorp/consul/api v1.4.1-0.20200930131338-207491eaa7c3 => github.com/hashicorp/consul-enterprise/api v0.0.0-20200929162542-03ac19c64222
 
 go 1.14
